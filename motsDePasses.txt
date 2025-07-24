@@ -1,0 +1,3 @@
+// Identifiant alice  / Mot de passe : 123
+// Identifiant bob / Mot de passe : 456
+// Identifiant caroline / Mot de passe : 789
