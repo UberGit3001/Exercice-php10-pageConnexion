@@ -1,0 +1,567 @@
+Microsoft Windows [version 10.0.19045.6159]
+(c) Microsoft Corporation. Tous droits réservés.
+
+C:\wamp64\www\exo-PHP10-pageConnexion>"C:\Users\laplateforme_\.dbclient\dependency\mysql\mysql.exe" -h 127.0.0.1 -P 3306 -u root  librairie
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 22
+Server version: 9.1.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> ALTER TABLE livres ADD FOREIGN KEY (auteur_id) REFERENCES auteurs(id),ADD FOREIGN KEY (categorie_id) REFERENCES categories(id);
+ERROR 1072 (42000): La clé 'auteur_id' n'existe pas dans la table
+mysql> DESCRIBE livres;
++---------------+--------------+------+-----+-------------------+-------------------+
+| Field         | Type         | Null | Key | Default           | Extra             |     
++---------------+--------------+------+-----+-------------------+-------------------+     
+| id            | int          | NO   | PRI | NULL              | auto_increment    |     
+| titre         | varchar(200) | NO   |     | NULL              |                   |
+| date_creation | datetime     | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++---------------+--------------+------+-----+-------------------+-------------------+
+3 rows in set (0.01 sec)
+
+mysql> ALTER TABLE livres ADD auteur_id INT, ADD categorie_id INT;
+Query OK, 0 rows affected (0.06 sec)
+Enregistrements: 0  Doublons: 0  Avertissements: 0
+
+mysql> DESCRIBE livres;
++---------------+--------------+------+-----+-------------------+-------------------+
+| Field         | Type         | Null | Key | Default           | Extra             |
++---------------+--------------+------+-----+-------------------+-------------------+
+| id            | int          | NO   | PRI | NULL              | auto_increment    |
+| titre         | varchar(200) | NO   |     | NULL              |                   |
+| date_creation | datetime     | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
+| auteur_id     | int          | YES  |     | NULL              |                   |
+| categorie_id  | int          | YES  |     | NULL              |                   |
++---------------+--------------+------+-----+-------------------+-------------------+
+5 rows in set (0.00 sec)
+
+mysql> DESCRIBE auteurs;
++-------+--------------+------+-----+---------+----------------+
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | int          | NO   | PRI | NULL    | auto_increment |
+| nom   | varchar(100) | NO   |     | NULL    |                |
+| email | varchar(100) | YES  | UNI | NULL    |                |
++-------+--------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> DESCRIBE categories;
+ERROR 1146 (42S02): La table 'librairie.categories' n'existe pas
+mysql> RENAME TABLE categorie TO caategories;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> DESCRIBE categories; 
+ERROR 1146 (42S02): La table 'librairie.categories' n'existe pas
+mysql> SHOW TABLES;   
++---------------------+
+| Tables_in_librairie |
++---------------------+
+| auteurs             |
+| caategories         |
+| livres              |
++---------------------+
+3 rows in set (0.00 sec)
+
+mysql> DESCRIBE caategories;
++-------+--------------+------+-----+---------+----------------+
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | int          | NO   | PRI | NULL    | auto_increment |
+| nom   | varchar(200) | NO   |     | NULL    |                |
++-------+--------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> RENAME TABLE caategories TO categories;   
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> DESCRIBE categories;
++-------+--------------+------+-----+---------+----------------+
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | int          | NO   | PRI | NULL    | auto_increment |
+| nom   | varchar(200) | NO   |     | NULL    |                |
++-------+--------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> SHOW TABLES;       
++---------------------+
+| Tables_in_librairie |
++---------------------+
+| auteurs             |
+| categories          |
+| livres              |
++---------------------+
+3 rows in set (0.00 sec)
+
+INSERT INTO auteurs (id, "nom","email") 
+                    VALUES 
+                    (NOT NULL, "George Sand", "gsand@example.com"),
+                    (NOT NULL, "Victor Hugo", "vhugo@example.com"),
+                    (NOT NULL, "Alexandre Dumas", "adumas@example.com"),
+                    (NOT NULL, "Gustave Flaubert", "gflaubert@example.com"),
+                    (NOT NULL, "Marcel Pagnol", "mpagnol@example.com");
+
+                    
+mysql> SHOW TABLES;
++---------------------+
+| Tables_in_librairie |
++---------------------+
+| auteurs             |
+| categories          |
+| livres              |
++---------------------+
+3 rows in set (0.00 sec)
+
+mysql> DESCRIBE categories;
++-------+--------------+------+-----+---------+----------------+
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | int          | NO   | PRI | NULL    | auto_increment |
+| nom   | varchar(200) | NO   |     | NULL    |                |
++-------+--------------+------+-----+---------+----------------+
+2 rows in set (0.01 sec)
+
+mysql> DESCRIBE livres;
++---------------+--------------+------+-----+-------------------+-------------------+
+| Field         | Type         | Null | Key | Default           | Extra             |
++---------------+--------------+------+-----+-------------------+-------------------+
+| id            | int          | NO   | PRI | NULL              | auto_increment    |
+| titre         | varchar(200) | NO   |     | NULL              |                   |
+| date_creation | datetime     | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
+| auteur_id     | int          | YES  |     | NULL              |                   |
+| categorie_id  | int          | YES  |     | NULL              |                   |
++---------------+--------------+------+-----+-------------------+-------------------+
+5 rows in set (0.01 sec)
+
+
+INSERT INTO auteurs (nom,email) 
+VALUES 
+                    ("George Sand", "gsand@example.com"),
+                    ("Victor Hugo", "vhugo@example.com"),
+                    ("Alexandre Dumas", "adumas@example.com"),
+                    ("Gustave Flaubert", "gflaubert@example.com"),
+                    ("Marcel Pagnol", "mpagnol@example.com");
+    #--------------------------------------------------------------------------------------
+mysql> DESCRIBE auteurs;
++-------+--------------+------+-----+---------+----------------+
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | int          | NO   | PRI | NULL    | auto_increment |
+| nom   | varchar(100) | NO   |     | NULL    |                |
+| email | varchar(100) | YES  | UNI | NULL    |                |
++-------+--------------+------+-----+---------+----------------+
+3 rows in set (0.01 sec)
+
+mysql>                    INSERT INTO livres (nom, email) VALUE (2, "Victor Hugo", "vhugo@example.com");
+ERROR 1054 (42S22): Champ 'nom' inconnu dans field list
+mysql> INSERT INTO livres (nom, email) VALUE (2, "Victor Hugo", "vhugo@example.com");                    
+ERROR 1054 (42S22): Champ 'nom' inconnu dans field list
+mysql> INSERT INTO livres (nom, email) VALUE ("Victor Hugo", "vhugo@example.com");    
+ERROR 1054 (42S22): Champ 'nom' inconnu dans field list
+mysql> INSERT INTO auteurs (nom, email) VALUE ("Victor Hugo", "vhugo@exemple.com");  
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO auteurs (nom, email) VALUE ("Alexandre Dumas", "adumas@exemple.com");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO auteurs (nom, email) VALUE ("Gustave Flaubert", "gflaubert@exemple.com");   
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO auteurs (nom, email) VALUE ("Marcel Pagnol", "mpagnol@exemple.com");      
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM auteurs;
++----+------------------+-----------------------+
+| id | nom              | email                 |
++----+------------------+-----------------------+
+|  1 | George Sand      | gsand@exemple.com     |
+|  2 | Victor Hugo      | vhugo@exemple.com     |
+|  3 | Alexandre Dumas  | adumas@exemple.com    |
+|  4 | Gustave Flaubert | gflaubert@exemple.com |
+|  5 | Marcel Pagnol    | mpagnol@exemple.com   |
++----+------------------+-----------------------+
+5 rows in set (0.00 sec)
+
+#-------------------------------------------------------------------------------------------
+
+INSERT INTO categories (nom) 
+VALUES 
+                    ("Roman historique"),
+                    ("Poésie"),
+                    ("Théâtre"),
+                    ("Roman réaliste"),
+                    ("Littérature jeunesse");
+
+mysql> INSERT INTO categories (nom) VALUE ("Roman historique"),("Poésie"),("théâtre"),("Roman réaliste"),("Littérature jeunesse");
+Query OK, 5 rows affected (0.00 sec)
+Enregistrements: 5  Doublons: 0  Avertissements: 0
+
+mysql> SELECT * FROM catégories;
+ERROR 1146 (42S02): La table 'librairie.catégories' n'existe pas
+mysql> SELECT * FROM categories;
++----+----------------------+
+| id | nom                  |
++----+----------------------+
+|  1 | Roman historique     |
+|  2 | Poésie               |
+|  3 | théâtre              |
+|  4 | Roman réaliste       |
+|  5 | Littérature jeunesse |
++----+----------------------+
+5 rows in set (0.00 sec)
+
+#-------------------------------------------------------------------------------------------
+INSERT INTO livres (titre, date_creation, auteur_id, categorie_id)
+VALUES
+                    -- George Sand
+    ("La Mare au Diable", 1846, 1, 4),
+    ("Indiana", 1832, 1, 4),
+    
+    -- Victor Hugo
+    ("Les Misérables", 1862, 2, 1),
+    ("Les Contemplations", 1856, 2, 2),
+   
+    
+    -- Alexandre Dumas
+    ("Le Comte de Monte-Cristo", 1845, 3, 1),
+    ("Les Trois Mousquetaires", 1844, 3, 1),
+    
+    -- Gustave Flaubert
+    ("Madame Bovary", 1857, 4, 4),
+    ("Salammbô", 1862, 4, 1),
+    
+    -- Marcel Pagnol
+    ("La Gloire de mon père", 1957, 5, 5),
+    ("Marius", 1929, 5, 3);
+
+    #-----------------------------------------------------------------------------------
+    mysql> SELECT * FROM livres;   
++----+--------------------------+---------------+-----------+--------------+
+| id | titre                    | date_creation | auteur_id | categorie_id |
++----+--------------------------+---------------+-----------+--------------+
+|  1 | La Mare au Diable        | 0000-00-00    |         1 |            4 |
+|  2 | Indiana                  | 0000-00-00    |         1 |            4 |
+|  3 | Les Misérables           | 0000-00-00    |         2 |            1 |
+|  4 | Les Comtemplations       | 0000-00-00    |         2 |            2 |
+|  5 | Le Comte de Monte-Cristo | 0000-00-00    |         3 |            1 |
+|  6 | Les Trois Mousquetaires  | 0000-00-00    |         3 |            1 |
+|  7 | Madame Bovary            | 0000-00-00    |         4 |            4 |
+|  8 | Salambô                  | 0000-00-00    |         4 |            1 |
+|  9 | La Gloire de mon père    | 0000-00-00    |         5 |            5 |
+| 10 | Marius                   | 0000-00-00    |         5 |            3 |
+| 11 | La Mare au Diable        | 0000-00-00    |         1 |            4 |
++----+--------------------------+---------------+-----------+--------------+
+11 rows in set (0.00 sec)
+
+mysql> INSERT INTO livres (titre, date_creation, auteur_id, categorie_id) VALUE ("Indiana", "1832-01-01",1,4); 
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM livres;
++----+--------------------------+---------------+-----------+--------------+
+| id | titre                    | date_creation | auteur_id | categorie_id |
++----+--------------------------+---------------+-----------+--------------+
+|  1 | La Mare au Diable        | 0000-00-00    |         1 |            4 |
+|  2 | Indiana                  | 0000-00-00    |         1 |            4 |
+|  3 | Les Misérables           | 0000-00-00    |         2 |            1 |
+|  4 | Les Comtemplations       | 0000-00-00    |         2 |            2 |
+|  5 | Le Comte de Monte-Cristo | 0000-00-00    |         3 |            1 |
+|  6 | Les Trois Mousquetaires  | 0000-00-00    |         3 |            1 |
+|  7 | Madame Bovary            | 0000-00-00    |         4 |            4 |
+|  8 | Salambô                  | 0000-00-00    |         4 |            1 |
+|  9 | La Gloire de mon père    | 0000-00-00    |         5 |            5 |
+| 10 | Marius                   | 0000-00-00    |         5 |            3 |
+| 11 | La Mare au Diable        | 0000-00-00    |         1 |            4 |
+| 12 | Indiana                  | 1832-01-01    |         1 |            4 |
++----+--------------------------+---------------+-----------+--------------+
+12 rows in set (0.00 sec)
+
+mysql> DROP TABLE livres;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM livres;
+ERROR 1146 (42S02): La table 'librairie.livres' n'existe pas
+mysql> INSERT INTO livres (titre, date_creation, auteur_id, categorie_id) VALUE ("La Mare au Diable","1846-01-02",1,4);
+ERROR 1146 (42S02): La table 'librairie.livres' n'existe pas
+mysql> CREATE TABLE livres;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> CREATE TABLE livres (id INT AUTO_INCREMENT PRIMARY KEY, titre VARCHAR(100) NOT NULL, date_creation DATE NOT NULL, auteur_id INT NOT NULL, categorie_id INT NOT NULL,FOREIGN KEY (auteur_id) REFERENCES auteurs(id), FOREIGN KEY (categorie_id) REFERENCES categories(id));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM livres;
+Empty set (0.00 sec)
+
+mysql> INSERT INTO livres (titre, date_creation, auteur_id, categorie_id) VALUE ("La Mare au Diable","1846-01-01",1,4);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO livres (titre, date_creation, auteur_id, categorie_id) VALUE ("Indiana",1832-01-03, 1, 4); 
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> INSERT INTO livres (titre, date_creation, auteur_id, categorie_id) VALUE ("Les Misérables", "1862-09-18", 2, 1),("Les Comtemplations", "1856-11-06", 2, 2);
+Query OK, 2 rows affected (0.00 sec)
+Enregistrements: 2  Doublons: 0  Avertissements: 0
+
+mysql> INSERT INTO livres (titre, date_creation, auteur_id, categorie_id) VALUE ("Le Comte de Monte-Cristo", "1845-05-08", 3, 1),("Les Trois Mousquetaires", "1844-07-15", 3, 1),("Madame Bovary", "1857-04-24", 4, 4),("Salambô", "1862-12-04", 4, 1),("La Gloire de mon père", "1957-03-13", 5, 5),("Marius", "1929-04-18", 5, 3);
+Query OK, 6 rows affected (0.00 sec)
+Enregistrements: 6  Doublons: 0  Avertissements: 0
+
+mysql> SELECT * FROM livres;
++----+--------------------------+---------------+-----------+--------------+
+| id | titre                    | date_creation | auteur_id | categorie_id |
++----+--------------------------+---------------+-----------+--------------+
+|  1 | La Mare au Diable        | 1846-01-01    |         1 |            4 |
+|  2 | Indiana                  | 0000-00-00    |         1 |            4 |
+|  3 | Les Misérables           | 1862-09-18    |         2 |            1 |
+|  4 | Les Comtemplations       | 1856-11-06    |         2 |            2 |
+|  5 | Le Comte de Monte-Cristo | 1845-05-08    |         3 |            1 |
+|  6 | Les Trois Mousquetaires  | 1844-07-15    |         3 |            1 |
+|  7 | Madame Bovary            | 1857-04-24    |         4 |            4 |
+|  8 | Salambô                  | 1862-12-04    |         4 |            1 |
+|  9 | La Gloire de mon père    | 1957-03-13    |         5 |            5 |
+| 10 | Marius                   | 1929-04-18    |         5 |            3 |
++----+--------------------------+---------------+-----------+--------------+
+10 rows in set (0.00 sec)
+
+
+    #-----------------------------------------------------------------------------------
+
+    mysql> INSERT INTO livres (titre, date_creation, auteur_id, categorie_id) VALUE ("La Mare au Diable",1846,1,4);
+Query OK, 1 row affected, 1 warning (0.01 sec)
+
+mysql> INSERT INTO livres (titre, date_creation, auteur_id, categorie_id) VALUE ("Indiana",1832,1,4);          
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> SELECT ALL FROM livtes;
+ERROR 1064 (42000): Erreur de syntaxe près de 'FROM livtes' à la ligne 1
+mysql> SELECT * FROM livres;
++----+-------------------+---------------------+-----------+--------------+
+| id | titre             | date_creation       | auteur_id | categorie_id |
++----+-------------------+---------------------+-----------+--------------+
+|  1 | La Mare au Diable | 0000-00-00 00:00:00 |         1 |            4 |
+|  2 | Indiana           | 0000-00-00 00:00:00 |         1 |            4 |
++----+-------------------+---------------------+-----------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO livres (titre, date_creation, auteur_id, categorie_id) VALUE ("La Mare au Diable",1846,1,4);
+Query OK, 1 row affected, 1 warning (0.01 sec)
+
+mysql> INSERT INTO livres (titre, date_creation, auteur_id, categorie_id) VALUE ("Indiana",1832,1,4);          
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> SELECT ALL FROM livtes;
+ERROR 1064 (42000): Erreur de syntaxe près de 'FROM livtes' à la ligne 1
+mysql> SELECT * FROM livres;
++----+-------------------+---------------------+-----------+--------------+
+| id | titre             | date_creation       | auteur_id | categorie_id |
++----+-------------------+---------------------+-----------+--------------+
+|  1 | La Mare au Diable | 0000-00-00 00:00:00 |         1 |            4 |
+|  2 | Indiana           | 0000-00-00 00:00:00 |         1 |            4 |
++----+-------------------+---------------------+-----------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO livres (titre, date_creation, auteur_id, categorie_id) VALUE ("Les Misérables", 1862, 2, 1),("Les 
+Comtemplations", 1856, 2, 2);
+Query OK, 2 rows affected, 2 warnings (0.00 sec)
+Enregistrements: 2  Doublons: 0  Avertissements: 2
+
+mysql> SELECT * FROM livres;
++----+--------------------+---------------------+-----------+--------------+
+| id | titre              | date_creation       | auteur_id | categorie_id |
++----+--------------------+---------------------+-----------+--------------+
+|  1 | La Mare au Diable  | 0000-00-00 00:00:00 |         1 |            4 |
+|  2 | Indiana            | 0000-00-00 00:00:00 |         1 |            4 |
+|  3 | Les Misérables     | 0000-00-00 00:00:00 |         2 |            1 |
+|  4 | Les Comtemplations | 0000-00-00 00:00:00 |         2 |            2 |
++----+--------------------+---------------------+-----------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO livres (titre, date_creation, auteur_id, categorie_id) VALUE ("Le Comte de Monte-Cristo", 1845, 3, 1),("Les Trois Mousquetaires", 1844, 3, 1),("Madame Bovary", 1857, 4, 4),("Salambô", 1862 , 4, 1),("La Gloire de mon père", 1957 , 5, 5),("Marius", 1929, 5, 3);
+Query OK, 6 rows affected, 6 warnings (0.00 sec)
+Enregistrements: 6  Doublons: 0  Avertissements: 6
+
+mysql> SELECT * FROM livres;
++----+--------------------------+---------------------+-----------+--------------+
+| id | titre                    | date_creation       | auteur_id | categorie_id |
++----+--------------------------+---------------------+-----------+--------------+
+|  1 | La Mare au Diable        | 0000-00-00 00:00:00 |         1 |            4 |
+|  2 | Indiana                  | 0000-00-00 00:00:00 |         1 |            4 |
+|  3 | Les Misérables           | 0000-00-00 00:00:00 |         2 |            1 |
+|  4 | Les Comtemplations       | 0000-00-00 00:00:00 |         2 |            2 |
+|  5 | Le Comte de Monte-Cristo | 0000-00-00 00:00:00 |         3 |            1 |
+|  6 | Les Trois Mousquetaires  | 0000-00-00 00:00:00 |         3 |            1 |
+|  7 | Madame Bovary            | 0000-00-00 00:00:00 |         4 |            4 |
+|  8 | Salambô                  | 0000-00-00 00:00:00 |         4 |            1 |
+|  9 | La Gloire de mon père    | 0000-00-00 00:00:00 |         5 |            5 |
+| 10 | Marius                   | 0000-00-00 00:00:00 |         5 |            3 |
++----+--------------------------+---------------------+-----------+--------------+
+
+10 rows in set (0.00 sec)
+
+mysql> SELECT * FROM livres;   
++----+--------------------------+---------------+-----------+--------------+
+| id | titre                    | date_creation | auteur_id | categorie_id |
++----+--------------------------+---------------+-----------+--------------+
+|  1 | La Mare au Diable        | 0000-00-00    |         1 |            4 |
+|  2 | Indiana                  | 0000-00-00    |         1 |            4 |
+|  3 | Les Misérables           | 0000-00-00    |         2 |            1 |
+|  4 | Les Comtemplations       | 0000-00-00    |         2 |            2 |
+|  5 | Le Comte de Monte-Cristo | 0000-00-00    |         3 |            1 |
+|  6 | Les Trois Mousquetaires  | 0000-00-00    |         3 |            1 |
+|  7 | Madame Bovary            | 0000-00-00    |         4 |            4 |
+|  8 | Salambô                  | 0000-00-00    |         4 |            1 |
+|  9 | La Gloire de mon père    | 0000-00-00    |         5 |            5 |
+| 10 | Marius                   | 0000-00-00    |         5 |            3 |
+| 11 | La Mare au Diable        | 0000-00-00    |         1 |            4 |
++----+--------------------------+---------------+-----------+--------------+
+11 rows in set (0.00 sec)
+
+mysql> INSERT INTO livres (titre, date_creation, auteur_id, categorie_id) VALUE ("Indiana", "1832-01-01",1,4); 
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM livres;
++----+--------------------------+---------------+-----------+--------------+
+| id | titre                    | date_creation | auteur_id | categorie_id |
++----+--------------------------+---------------+-----------+--------------+
+|  1 | La Mare au Diable        | 0000-00-00    |         1 |            4 |
+|  2 | Indiana                  | 0000-00-00    |         1 |            4 |
+|  3 | Les Misérables           | 0000-00-00    |         2 |            1 |
+|  4 | Les Comtemplations       | 0000-00-00    |         2 |            2 |
+|  5 | Le Comte de Monte-Cristo | 0000-00-00    |         3 |            1 |
+|  6 | Les Trois Mousquetaires  | 0000-00-00    |         3 |            1 |
+|  7 | Madame Bovary            | 0000-00-00    |         4 |            4 |
+|  8 | Salambô                  | 0000-00-00    |         4 |            1 |
+|  9 | La Gloire de mon père    | 0000-00-00    |         5 |            5 |
+| 10 | Marius                   | 0000-00-00    |         5 |            3 |
+| 11 | La Mare au Diable        | 0000-00-00    |         1 |            4 |
+| 12 | Indiana                  | 1832-01-01    |         1 |            4 |
++----+--------------------------+---------------+-----------+--------------+
+12 rows in set (0.00 sec)
+
+mysql> DROP TABLE livres;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM livres;
+ERROR 1146 (42S02): La table 'librairie.livres' n'existe pas
+mysql> INSERT INTO livres (titre, date_creation, auteur_id, categorie_id) VALUE ("La Mare au Diable","1846-01-02",1,4);
+ERROR 1146 (42S02): La table 'librairie.livres' n'existe pas
+mysql> CREATE TABLE livres;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> CREATE TABLE livres (id INT AUTO_INCREMENT PRIMARY KEY, titre VARCHAR(100) NOT NULL, date_creation DATE NOT NULL, auteur_id INT NOT NULL, categorie_id INT NOT NULL,FOREIGN KEY (auteur_id) REFERENCES auteurs(id), FOREIGN KEY (categorie_id) REFERENCES categories(id));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM livres;
+Empty set (0.00 sec)
+
+mysql> INSERT INTO livres (titre, date_creation, auteur_id, categorie_id) VALUE ("La Mare au Diable","1846-01-01",1,4);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO livres (titre, date_creation, auteur_id, categorie_id) VALUE ("Indiana",1832-01-03, 1, 4); 
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> INSERT INTO livres (titre, date_creation, auteur_id, categorie_id) VALUE ("Les Misérables", "1862-09-18", 2, 1),("Les Comtemplations", "1856-11-06", 2, 2);
+Query OK, 2 rows affected (0.00 sec)
+Enregistrements: 2  Doublons: 0  Avertissements: 0
+
+mysql> INSERT INTO livres (titre, date_creation, auteur_id, categorie_id) VALUE ("Le Comte de Monte-Cristo", "1845-05-08", 3, 1),("Les Trois Mousquetaires", "1844-07-15", 3, 1),("Madame Bovary", "1857-04-24", 4, 4),("Salambô", "1862-12-04", 4, 1),("La Gloire de mon père", "1957-03-13", 5, 5),("Marius", "1929-04-18", 5, 3);
+Query OK, 6 rows affected (0.00 sec)
+Enregistrements: 6  Doublons: 0  Avertissements: 0
+
+mysql> SELECT * FROM livres;
++----+--------------------------+---------------+-----------+--------------+
+| id | titre                    | date_creation | auteur_id | categorie_id |
++----+--------------------------+---------------+-----------+--------------+
+|  1 | La Mare au Diable        | 1846-01-01    |         1 |            4 |
+|  2 | Indiana                  | 0000-00-00    |         1 |            4 |
+|  3 | Les Misérables           | 1862-09-18    |         2 |            1 |
+|  4 | Les Comtemplations       | 1856-11-06    |         2 |            2 |
+|  5 | Le Comte de Monte-Cristo | 1845-05-08    |         3 |            1 |
+|  6 | Les Trois Mousquetaires  | 1844-07-15    |         3 |            1 |
+|  7 | Madame Bovary            | 1857-04-24    |         4 |            4 |
+|  8 | Salambô                  | 1862-12-04    |         4 |            1 |
+|  9 | La Gloire de mon père    | 1957-03-13    |         5 |            5 |
+| 10 | Marius                   | 1929-04-18    |         5 |            3 |
++----+--------------------------+---------------+-----------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT * FROM livres WHERE date_creation < 1900-01-01; 
++----+---------+---------------+-----------+--------------+
+| id | titre   | date_creation | auteur_id | categorie_id |
++----+---------+---------------+-----------+--------------+
+|  2 | Indiana | 0000-00-00    |         1 |            4 |
++----+---------+---------------+-----------+--------------+
+1 row in set, 1 warning (0.00 sec)
+mysql> SELECT * FROM livres;
++----+--------------------------+---------------+-----------+--------------+
+| id | titre                    | date_creation | auteur_id | categorie_id |
++----+--------------------------+---------------+-----------+--------------+
+|  1 | La Mare au Diable        | 1846-01-01    |         1 |            4 |
+|  2 | Indiana                  | 0000-00-00    |         1 |            4 |
+|  3 | Les Misérables           | 1862-09-18    |         2 |            1 |
+|  4 | Les Comtemplations       | 1856-11-06    |         2 |            2 |
+|  5 | Le Comte de Monte-Cristo | 1845-05-08    |         3 |            1 |
+|  6 | Les Trois Mousquetaires  | 1844-07-15    |         3 |            1 |
+|  7 | Madame Bovary            | 1857-04-24    |         4 |            4 |
+|  8 | Salambô                  | 1862-12-04    |         4 |            1 |
+|  9 | La Gloire de mon père    | 1957-03-13    |         5 |            5 |
+| 10 | Marius                   | 1929-04-18    |         5 |            3 |
++----+--------------------------+---------------+-----------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT * FROM livres WHERE date_creation < 1900-01-01; 
++----+---------+---------------+-----------+--------------+
+| id | titre   | date_creation | auteur_id | categorie_id |
++----+---------+---------------+-----------+--------------+
+|  2 | Indiana | 0000-00-00    |         1 |            4 |
++----+---------+---------------+-----------+--------------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> UPDATE livres SET date_creation="1832-01-03" WHERE id=2;
+Query OK, 1 row affected (0.01 sec)
+Enregistrements correspondants: 1  Modifi├®s: 1  Warnings: 0
+
+mysql> SELECT * FROM livres;
++----+--------------------------+---------------+-----------+--------------+
+| id | titre                    | date_creation | auteur_id | categorie_id |
++----+--------------------------+---------------+-----------+--------------+
+|  1 | La Mare au Diable        | 1846-01-01    |         1 |            4 |
+|  2 | Indiana                  | 1832-01-03    |         1 |            4 |
+|  3 | Les Misérables           | 1862-09-18    |         2 |            1 |
+|  4 | Les Comtemplations       | 1856-11-06    |         2 |            2 |
+|  5 | Le Comte de Monte-Cristo | 1845-05-08    |         3 |            1 |
+|  6 | Les Trois Mousquetaires  | 1844-07-15    |         3 |            1 |
+|  7 | Madame Bovary            | 1857-04-24    |         4 |            4 |
+|  8 | Salambô                  | 1862-12-04    |         4 |            1 |
+|  9 | La Gloire de mon père    | 1957-03-13    |         5 |            5 |
+| 10 | Marius                   | 1929-04-18    |         5 |            3 |
++----+--------------------------+---------------+-----------+--------------+
+10 rows in set (0.00 sec)
+
+
+mysql> SELECT FLOOR5(YEAR(date_creation) / 10) * 10 AS decennie, COUNT(*) AS nombre_livres FROM livres GROUP BY decennie, ORDER BY decennie;
+
+ERROR 1064 (42000): Erreur de syntaxe près de 'ORDER BY decennie' à la ligne 1
+mysql> SELECT FLOOR5(YEAR(date_creation) / 10) * 10 AS decennie, COUNT(*) AS nombre_livres FROM livres GROUP BY decennie, ORDER BY decennie;
+  
+ERROR 1064 (42000): Erreur de syntaxe près de 'ORDER BY decennie' à la ligne 1
+mysql> SELECT FLOOR(YEAR(date_creation) / 10) * 10 AS decennie, COUNT(*) AS nombre_livres FROM livres GROUP BY decennie, ORDER BY decennie; 
+
+ERROR 1064 (42000): Erreur de syntaxe près de 'ORDER BY decennie' à la ligne 1
+mysql> SELECT FLOOR(YEAR(date_creation) / 10) * 10 AS decennie, COUNT(*) AS nombre_livres FROM livres GROUP BY decennie ORDER BY decennie;  
+
++----------+---------------+
+| decennie | nombre_livres |
++----------+---------------+
+|     1830 |             1 |
+|     1840 |             3 |
+|     1850 |             2 |
+|     1860 |             2 |
+|     1920 |             1 |
+|     1950 |             1 |
++----------+---------------+
+6 rows in set (0.01 sec)
